@@ -12,7 +12,7 @@ const MOVES = {
 
 export class Pac {
 
-  board: string[];
+  board: string[][];
   pacX: number;
   pacY: number;
   coinCount: number = 0;
@@ -44,26 +44,26 @@ export class Pac {
 
     const arr = data.split('\n');
     let i = 0;
-    console.log(arr);
+    // console.log(arr);
 
     const length = +arr[i];
     const board = arr.slice(i, i += length);
 
-    board.map(line => {
+    this.board = board.map(line => {
       const a = [];
-
-      for (let f = 0; f < length) {
-
+      for (let f = 0; f < length; f++) {
+        a.push(line.charAt(f));
       }
-      line.
+      return a;
     })
-    this.board
-    console.log(length, this.board);
+
+    console.log(this.toString());
+    // console.log(length, this.board);
     i++;
 
     const pacLocation = arr[i++].split(' ');
-    this.pacX = +pacLocation[0] - 1;
-    this.pacY = +pacLocation[1] - 1;
+    this.pacY = +pacLocation[0] - 1;
+    this.pacX = +pacLocation[1] - 1;
     console.log(this.pacX, this.pacY);
 
     const sequenceLength = +arr[i++];
@@ -74,29 +74,36 @@ export class Pac {
     for (let s = 0; s < sequenceLength; s++) {
 
       const moveChar = this.sequence[s];
-      console.log(moveChar, MOVES);
+      // console.log(moveChar, MOVES);
       const move = MOVES[moveChar];
 
       this.movePac(move.x, move.y);
-      this.count();
-      console.log(this.coinCount);
     }
+    console.log(this.coinCount);
+    console.log(this.toString());
   }
 
   movePac(x: number, y: number): void {
     this.pacX += x;
     this.pacY += y;
 
-    const line = this.board[this.pacY];
-    line.ch
-  }
-
-  count(): void {
-    const line = this.board[this.pacY];
-    const char = line.charAt(this.pacX);
+    const line: string[] = this.board[this.pacY];
+    const char = line[this.pacX];
 
     if (char == 'C') {
       this.coinCount++;
     }
+
+    line[this.pacX] = 'E';
+  }
+
+  toString(): string {
+
+    const output = this.board.map(line => {
+      return line.join('');
+    }).join('\n');
+
+    // console.log(output);
+    return output;
   }
 }
