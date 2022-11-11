@@ -55,23 +55,26 @@ export class Pac {
         a.push(line.charAt(f));
       }
       return a;
-    })
+    });
 
     console.log(this.toString());
     // console.log(length, this.board);
     i++;
 
     const pacLocation = arr[i++].split(' ');
-    this.pacY = +pacLocation[0] - 1;
-    this.pacX = +pacLocation[1] - 1;
+    this.pacY = +pacLocation[0];
+    this.pacX = +pacLocation[1];
     console.log(this.pacX, this.pacY);
+
+    this.pacX--;
+    this.pacY--;
 
     const sequenceLength = +arr[i++];
     this.sequence = arr[i++];
     console.log(sequenceLength, this.sequence);
 
     this.coinCount = 0;
-    for (let s = 0; s < sequenceLength; s++) {
+    for (let s = 0; s < sequenceLength && s < 1; s++) {
 
       const moveChar = this.sequence[s];
       // console.log(moveChar, MOVES);
